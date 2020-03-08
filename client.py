@@ -1,9 +1,6 @@
 #Group Members
 #Hassan Shahzad
-#Bisma Aslam 
-#Mahnoor Abeer
-#Qurat Ul Ain
-#Zunaira Shafaq
+
 
 import socket
 import pickle
