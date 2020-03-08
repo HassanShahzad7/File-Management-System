@@ -10,20 +10,29 @@ import threading
 import time
 mydir = directories("main")
 myfile = files("mainer")
-MAX_SIZE_BYTES = 65535 # Mazimum size of a UDP datagram - 64Kbytes
+# Mazimum size of a UDP datagram - 64Kbytes
+MAX_SIZE_BYTES = 65535 
 
 def serverprog():
-    host = socket.gethostname() # gets the local host name from which server program is initiaited
-    port = 95 # binding the port to port 95
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
-    s.bind((host, port)) # binding hostname and port number
-    count = 0 # count initialized to 0 will be incremented when a new user is registered but not yet implemented
+    # gets the local host name from which server program is initiaited
+    host = socket.gethostname() 
+    # binding the port to port 95
+    port = 95 
+    # UDP
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) 
+    # binding hostname and port number
+    s.bind((host, port)) 
+    # count initialized to 0 will be incremented when a new user is registered but not yet implemented
+    count = 0
 
     while True:
-        clientsocket, address = s.recvfrom(MAX_SIZE_BYTES) #receives data from client.py
+        #receives data from client.py
+        clientsocket, address = s.recvfrom(MAX_SIZE_BYTES) 
         print("Connection from " + str(address) + " has been established.")
-        data = pickle.loads(clientsocket) # decodes data from client
-        count += 1 #increments counter by 1; whenever a new connection is established
+        # decodes data from client
+        data = pickle.loads(clientsocket) 
+         #increments counter by 1; whenever a new connection is established
+        count += 1
         print('The client at {} says {!r}'.format(address, data[0]))
         print(data)
         
@@ -34,24 +43,30 @@ def serverprog():
 
             a = data[1]
             b = data[2]
-            mydir.addFile(a, b) # calls addFile func from file.py and pass the data sent from client
+            # calls addFile func from file.py and pass the data sent from client
+            mydir.addFile(a, b) 
             b = "File Created!!"
-            a = mydir.getFiles() # shows the file names
+            # shows the file names
+            a = mydir.getFiles() 
             k = [a]
-            da = pickle.dumps(k) # data encoding
-            s.sendto(da, address) #sends data to client
+            # data encoding
+            da = pickle.dumps(k) 
+            #sends data to client
+            s.sendto(da, address) 
 
         # Writes to the file
         if data[0] == '2':
             a = data[1]
             b = data[2]
             d = data[3]
-            mydir.writeFile(a, b, d) # writes to file by calling writeFile funtion in file.py
+            # writes to file by calling writeFile funtion in file.py
+            mydir.writeFile(a, b, d) 
             print("text written")
             z = "Text written to File"
             k = [z]
             m = pickle.dumps(k)
-            s.sendto(m, address) #sends data to client
+            #sends data to client
+            s.sendto(m, address) 
 
         # Deletes the file
         if data[0] == '3':
@@ -60,7 +75,8 @@ def serverprog():
             c = "File Deleted"
             k = [c]
             m = pickle.dumps(k)
-            s.sendto(m, address) #sends data to client
+            #sends data to client
+            s.sendto(m, address) 
 
         # Creates the Directory
         if data[0] == '4':
@@ -69,7 +85,8 @@ def serverprog():
             a = "Directory Added"
             k = [a]
             m = pickle.dumps(k)
-            s.sendto(m, address) #sends data to client
+            #sends data to client
+            s.sendto(m, address) 
 
         if data[0] == '5':
             a = data[1]
@@ -78,17 +95,18 @@ def serverprog():
             print(b)
             k = [c, b]
             m = pickle.dumps(k)
-            s.sendto(m, address) #sends data to client
+            #sends data to client
+            s.sendto(m, address) 
 
         if data[0] == '6':
             a = data[1]
-
             x = "File Contents: "
             time.sleep(3)
             mydir.read(a)
             k = [x]
             m = pickle.dumps(k)
-            s.sendto(m, address) #sends data to client
+            #sends data to client
+            s.sendto(m, address) 
 
         if data[0] == '7':
             a = data[1]
@@ -97,7 +115,8 @@ def serverprog():
             mydir.truncate(a, b)
             k = [x]
             m = pickle.dumps(k)
-            s.sendto(m, address) #sends data to client
+            #sends data to client
+            s.sendto(m, address) 
 
         if data[0] == '8':
             a = data[1]
@@ -106,30 +125,35 @@ def serverprog():
             mydir.move(a, b)
             k = [c]
             m = pickle.dumps(k)
-            s.sendto(m, address) #sends data to client
+            #sends data to client
+            s.sendto(m, address) 
 
         if data[0] == '9':
             print(data[1])
             a = "Directory List"
             k = [a]
             m = pickle.dumps(k)
-            s.sendto(m, address) #sends data to client
+            #sends data to client
+            s.sendto(m, address) 
 
         if data[0] == '10':
             print(data[1])
             a = "Memory Map: "
             k = [a]
             m = pickle.dumps(k)
-            s.sendto(m, address) #sends data to client
+            #sends data to client
+            s.sendto(m, address) 
 
         if data[0] == '11':
             print(data[1])
             a = "Thank you for visiting us. Hope to see you soon!"
             k = [a]
             m = pickle.dumps(k)
-            s.sendto(m, address) #sends data to client
+            #sends data to client
+            s.sendto(m, address) 
 
-        s.sendto(clientsocket, address) #sends data to client
+        #sends data to client
+        s.sendto(clientsocket, address) 
 
 
 if __name__ == '__main__':
