@@ -1,6 +1,3 @@
-#Group Members
-#Hassan Shahzad
-
 
 import socket
 from file import files
@@ -40,7 +37,7 @@ def serverprog():
         
         # creates file 
         if data[0] == '1':
-
+            # assigns a to 2nd item in the list and and b to 3rd item in the list which is loaded by pickle
             a = data[1]
             b = data[2]
             # calls addFile func from file.py and pass the data sent from client
@@ -51,7 +48,7 @@ def serverprog():
             k = [a]
             # data encoding
             da = pickle.dumps(k) 
-            #sends data to client
+            # sends enocoded data to client
             s.sendto(da, address) 
 
         # Writes to the file
