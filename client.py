@@ -1,5 +1,3 @@
-#Group Members
-#Hassan Shahzad
 
 # client program to send requests to server
 
