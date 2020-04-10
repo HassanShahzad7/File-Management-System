@@ -28,3 +28,6 @@ Following are the functionalities provided by it:
 * Move contents within file.
 * Truncates contents of the file.
 * Showing memory map i.e directory structure.
+
+### Note:
+Funner.dat is the output text file
