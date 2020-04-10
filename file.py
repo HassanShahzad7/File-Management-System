@@ -1,5 +1,4 @@
-#Group Members
-#Hassan Shahzad
+
 
 #Implementing files class
 class files:
